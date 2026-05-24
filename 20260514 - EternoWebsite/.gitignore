@@ -3,3 +3,7 @@
 .env
 .env.*
 Elements/
+.venv/
+__pycache__/
+*.pyc
+.build/

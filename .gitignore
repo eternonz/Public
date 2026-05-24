@@ -9,3 +9,7 @@
 **/.gradle/
 **/.kotlin/
 **/DerivedData/
+**/.venv/
+**/__pycache__/
+**/*.pyc
+**/.build/
