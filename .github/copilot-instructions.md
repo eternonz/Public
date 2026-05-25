@@ -10,4 +10,4 @@ Also read `/Volumes/Data/Temps/Harness/SKILLs/` for durable workflow references.
 
 If a rule in `TopRules.md` conflicts with anything in this repo, the rule wins.
 
-_Last refreshed: 2026-05-24 22:54 NZST by copilot_bootstrap.sh._
+_Last refreshed: 2026-05-25 18:23 NZST by copilot_bootstrap.sh._
