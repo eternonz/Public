@@ -13,3 +13,14 @@
 **/__pycache__/
 **/*.pyc
 **/.build/
+# Bulk media originals — too large for git; archive to Google Drive instead
+**/Pictures/
+**/snapshot/
+# Generated web image derivatives (reproducible by build/sync scripts)
+**/site-v2/public/photos/
+**/site-v2/public/events/
+**/site-v2/public/services/
+**/site-v2/public/about/
+**/site-v2/.photo-cache.json
+# Nested deploy repos (their own GitHub repo; not tracked by the source repo)
+**/site-v2/dist/
