@@ -1,10 +1,15 @@
 name: Deploy EternoWebsite to GitHub Pages
 
+# Source code lives privately in eternonz/Private ("20260514 - EternoWebsite/Build").
+# It is built locally; only the rendered output is committed here under
+# "20260514 - EternoWebsite/dist". This workflow only PUBLISHES that output
+# (no build) so source + private assets never enter the public repo.
+
 on:
   push:
     branches: [main]
     paths:
-      - "20260514 - EternoWebsite/Build/**"
+      - "20260514 - EternoWebsite/dist/**"
       - ".github/workflows/deploy-eterno.yml"
   workflow_dispatch:
 
@@ -18,36 +23,16 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "20260514 - EternoWebsite/Build"
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: "20260514 - EternoWebsite/Build/dist"
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: "20260514 - EternoWebsite/dist"
       - id: deployment
         uses: actions/deploy-pages@v4
