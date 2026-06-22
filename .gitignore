@@ -16,9 +16,16 @@
 **/__pycache__/
 **/*.pyc
 **/.build/
-# Bulk media originals — too large for git; archive to Google Drive instead
+# Bulk media originals — too large for git; collection data lives in Harness/Memories (not synced)
 **/Pictures/
 **/snapshot/
+**/media/
+**/transcripts/
+**/*.mp3
+**/*.mp4
+**/*.mov
+**/*.m4a
+**/*.webm
 # Generated web image derivatives (reproducible by build/sync scripts)
 **/site-v2/public/photos/
 **/site-v2/public/events/

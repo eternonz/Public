@@ -6,7 +6,7 @@
 
 It defines the user's mandatory operating rules: short answers, Harness paths, where to save `.md` notes, where to save scripts, the `SKILLs/` reference library, project rules, and the personal-knowledge-lookup order.
 
-Also read `/Volumes/Data/Temps/Harness/SKILLs/` for durable workflow references.
+Also read `/Volumes/Data/Temps/Harness/Extensions/Skills/` for durable workflow references.
 
 If a rule in `TopRules.md` conflicts with anything in this repo, the rule wins.
 
