@@ -2,14 +2,14 @@ name: Deploy EternoWebsite to GitHub Pages
 
 # Source code lives privately in eternonz/Private ("20260514 - EternoWebsite/Build").
 # It is built locally; only the rendered output is committed here under
-# "20260514 - EternoWebsite/site". This workflow only PUBLISHES that output
+# "20260514 - EternoWebsite/Doc/site". This workflow only PUBLISHES that output
 # (no build) so source + private assets never enter the public repo.
 
 on:
   push:
     branches: [main]
     paths:
-      - "20260514 - EternoWebsite/site/**"
+      - "20260514 - EternoWebsite/Doc/site/**"
       - ".github/workflows/deploy-eterno.yml"
   workflow_dispatch:
 
@@ -33,6 +33,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: "20260514 - EternoWebsite/site"
+          path: "20260514 - EternoWebsite/Doc/site"
       - id: deployment
         uses: actions/deploy-pages@v4
