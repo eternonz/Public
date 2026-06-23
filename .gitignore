@@ -26,6 +26,10 @@
 **/*.mov
 **/*.m4a
 **/*.webm
+# Runtime logs and oversized master images (masters live in Google Drive, not git)
+**/*.err.log
+**/*.out.log
+**/Pages/Services/*.JPG
 # Generated web image derivatives (reproducible by build/sync scripts)
 **/site-v2/public/photos/
 **/site-v2/public/events/
