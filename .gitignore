@@ -30,6 +30,16 @@
 **/*.err.log
 **/*.out.log
 **/Pages/Services/*.JPG
+# Never sync AI-tool config dumps (sessions/keys) — defends against accidental commits
+**/shell-snapshots/
+**/session-env/
+**/statsig/
+**/telemetry/
+**/history.jsonl
+**/.claude.json.backup.*
+claude-code/
+claude-desktop/
+claude-server-commander/
 # Generated web image derivatives (reproducible by build/sync scripts)
 **/site-v2/public/photos/
 **/site-v2/public/events/
