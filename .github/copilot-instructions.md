@@ -2,7 +2,7 @@
 
 # Repository instructions for GitHub Copilot
 
-**Read `/Volumes/Data/Temps/Harness/Memories/TopRules.md` FIRST before suggesting code, comments, or commit messages.**
+**Read `/Volumes/Data/Temps/Harness/Memories/Others/TopRules.md` FIRST before suggesting code, comments, or commit messages.**
 
 It defines the user's mandatory operating rules: short answers, Harness paths, where to save `.md` notes, where to save scripts, the `SKILLs/` reference library, project rules, and the personal-knowledge-lookup order.
 
@@ -10,4 +10,4 @@ Also read `/Volumes/Data/Temps/Harness/Extensions/Skills/` for durable workflow 
 
 If a rule in `TopRules.md` conflicts with anything in this repo, the rule wins.
 
-_Last refreshed: 2026-06-25 12:14 NZST by copilot_bootstrap.sh._
+_Last refreshed: 2026-06-29 16:42 NZST by copilot_bootstrap.sh._
