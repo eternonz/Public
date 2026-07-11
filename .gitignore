@@ -48,3 +48,6 @@ claude-server-commander/
 **/site-v2/.photo-cache.json
 # Nested deploy repos (their own GitHub repo; not tracked by the source repo)
 **/site-v2/dist/
+**/_deploy_repo/
+# Ephemeral Claude Code worktrees (per-session; never part of the source repo)
+**/.claude/worktrees/
