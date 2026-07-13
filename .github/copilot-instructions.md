@@ -4,10 +4,10 @@
 
 **Read `/Volumes/Data/Temps/Harness/Memories/Others/Constitution.md` FIRST before suggesting code, comments, or commit messages.**
 
-It defines the user's mandatory operating rules: short answers, Harness paths, where to save `.md` notes, where to save scripts, the `SKILLs/` reference library, project rules, and the personal-knowledge-lookup order.
+It defines the user's mandatory operating rules: short answers, Harness paths, where to save `.md` notes, where to save scripts, the `Extensions/Skills/` reference library, project rules, and the personal-knowledge-lookup order.
 
 Also read `/Volumes/Data/Temps/Harness/Extensions/Skills/` for durable workflow references.
 
 If a rule in `Constitution.md` conflicts with anything in this repo, the rule wins.
 
-_Last refreshed: 2026-07-13 12:57 NZST by copilot_bootstrap.sh._
+_Last refreshed: 2026-07-13 15:21 NZST by copilot_bootstrap.sh._
