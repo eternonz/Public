@@ -37,6 +37,8 @@ claude-server-commander/
 **/_deploy_repo/
 # Ephemeral Claude Code worktrees
 **/.claude/worktrees/
+# gstack runtime cache
+**/.gstack/
 
 # ── Public tier additions ─────────────────────────────────────────────────
 # .env and .env.* remain excluded (secrets must not reach a public repo)
