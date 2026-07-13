@@ -10,4 +10,4 @@ Also read `/Volumes/Data/Temps/Harness/Extensions/Skills/` for durable workflow 
 
 If a rule in `Constitution.md` conflicts with anything in this repo, the rule wins.
 
-_Last refreshed: 2026-07-13 12:01 NZST by copilot_bootstrap.sh._
+_Last refreshed: 2026-07-13 12:57 NZST by copilot_bootstrap.sh._
