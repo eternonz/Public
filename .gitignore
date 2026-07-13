@@ -26,6 +26,9 @@
 claude-code/
 claude-desktop/
 claude-server-commander/
+# oh-my-claudecode per-project runtime state (session index, replay logs,
+# project-memory scan cache) — regenerable noise, never source
+**/.omc/
 # Generated web image derivatives (reproducible by build/sync scripts)
 **/site-v2/public/photos/
 **/site-v2/public/events/
