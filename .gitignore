@@ -16,6 +16,9 @@
 # Runtime logs
 **/*.err.log
 **/*.out.log
+# f2 / tool runtime log dirs (a wrong-CWD run can drop these outside Build/;
+# persisted here so the generated project .gitignore never re-tracks them)
+**/logs/
 # AI-tool config dumps (sessions/keys — never source)
 **/shell-snapshots/
 **/session-env/
