@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>show-me · Decision Map</title>
+<style>
+  :root{
+    --bg:#f5f5f7;--surface:#fff;--surface-2:#f2f2f7;--text:#1d1d1f;--text-dim:#6e6e73;
+    --separator:rgba(0,0,0,.10);--accent:#0071e3;--green:#34c759;--orange:#ff9500;--red:#ff3b30;
+    --radius:12px;--radius-lg:20px;--shadow:0 1px 2px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.08);
+    --ease:cubic-bezier(.4,0,.2,1);
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --bg:#000;--surface:#1c1c1e;--surface-2:#2c2c2e;--text:#f5f5f7;--text-dim:#98989d;
+    --separator:rgba(255,255,255,.15);--accent:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;
+    --shadow:0 1px 2px rgba(0,0,0,.4);}}
+  *{box-sizing:border-box}html,body{margin:0}
+  body{font-family:var(--font);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;
+    line-height:1.45;padding:24px;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:960px}
+  h1{font-size:1.5rem;font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--text-dim);margin:0 0 20px;font-size:.9375rem}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;font-size:.8125rem;color:var(--text-dim)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .stage{background:var(--surface);border:1px solid var(--separator);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);padding:8px}
+  svg{display:block;width:100%;height:auto}
+  .node{cursor:pointer}
+  .node circle{transition:fill .2s var(--ease)}
+  .node:focus-visible circle{stroke:var(--accent);stroke-width:4}
+  .panel{margin-top:16px;background:var(--surface);border:1px solid var(--separator);
+    border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;min-height:96px}
+  .panel h2{font-size:1.125rem;margin:0 0 2px}
+  .panel .caption{color:var(--text-dim);font-size:.8125rem;margin:0 0 12px}
+  .rat{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--separator)}
+  .rat:first-of-type{border-top:0}
+  .rat .glyph{font-weight:600;min-width:1.4em}
+  .rat b{font-weight:600}
+  .rat p{margin:2px 0 0;color:var(--text-dim);font-size:.875rem}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="title"></h1>
+  <p class="sub" id="subtitle"></p>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--green)"></i> ✓ Justification</span>
+    <span><i class="dot" style="background:var(--orange)"></i> ⚑ Prerequisite</span>
+    <span><i class="dot" style="background:var(--red)"></i> ⚠ Risk</span>
+    <span style="margin-left:auto">Click a step · ← → to move</span>
+  </div>
+  <div class="stage"><svg id="svg" viewBox="0 0 920 250" role="group" aria-label="Decision map"></svg></div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var COLOR={justification:"var(--green)",prerequisite:"var(--orange)",risk:"var(--red)"};
+  var GLYPH={justification:"✓",prerequisite:"⚑",risk:"⚠"};
+
+  var data={
+    goal:"Ship v2 API with zero downtime",
+    subtitle:"Four steps, and the reasons behind each — click to inspect.",
+    steps:[
+      {order:1,title:"Dual-write",summary:"Write to old + new stores",rationales:[
+        {type:"justification",title:"Enables safe cutover",detail:"New store fills with live data while the old one still serves reads."},
+        {type:"prerequisite",title:"New schema deployed",detail:"Migrations applied and historical rows back-filled first."},
+        {type:"risk",title:"Write amplification",detail:"2× write load — watch p99 latency and queue depth."}]},
+      {order:2,title:"Shadow reads",summary:"Compare v2 vs v1 responses",rationales:[
+        {type:"justification",title:"Catches drift early",detail:"Diffing responses surfaces mismatches before users see them."},
+        {type:"risk",title:"Added read cost",detail:"Sample traffic (e.g. 5%) rather than mirroring 100%."}]},
+      {order:3,title:"Canary",summary:"Route 1%→50% to v2",rationales:[
+        {type:"justification",title:"Bounded blast radius",detail:"Errors hit a small slice; auto roll-back on SLO breach."},
+        {type:"prerequisite",title:"Dashboards + alerts",detail:"Error-rate and latency alerts wired before ramping."}]},
+      {order:4,title:"Cutover",summary:"100% v2, retire v1",rationales:[
+        {type:"justification",title:"Single source of truth",detail:"Removes dual-write complexity once v2 is proven."},
+        {type:"prerequisite",title:"Seven clean days",detail:"No SLO breach at 50% for a week before full cutover."},
+        {type:"risk",title:"Hard to reverse",detail:"Keep v1 warm and a documented roll-back for 30 days."}]}
+    ]
+  };
+
+  var NS="http://www.w3.org/2000/svg";
+  var svg=document.getElementById("svg");
+  var W=920,cy=110,n=data.steps.length,gap=W/(n+1);
+  document.getElementById("title").textContent=data.goal;
+  document.getElementById("subtitle").textContent=data.subtitle;
+
+  function el(name,attrs){var e=document.createElementNS(NS,name);for(var k in attrs)e.setAttribute(k,attrs[k]);return e;}
+  function txt(e,s){e.textContent=s;return e;}
+
+  svg.appendChild(el("line",{x1:gap,y1:cy,x2:gap*n,y2:cy,stroke:"var(--separator)","stroke-width":3}));
+
+  var nodes=[];
+  data.steps.forEach(function(s,i){
+    var x=gap*(i+1);
+    if(i>0) svg.appendChild(el("line",{x1:gap*i+26,y1:cy,x2:x-26,y2:cy,stroke:"var(--accent)","stroke-width":3}));
+    s.rationales.forEach(function(r,j){
+      var up=(j%2===0)?-1:1, len=48+j*5, ex=x+16, ey=cy+up*len;
+      svg.appendChild(el("line",{x1:x,y1:cy,x2:ex,y2:ey,stroke:COLOR[r.type],"stroke-width":2,opacity:.75}));
+      svg.appendChild(el("circle",{cx:ex,cy:ey,r:5,fill:COLOR[r.type]}));
+    });
+    var g=el("g",{"class":"node",tabindex:0,role:"button",
+      "aria-label":"Step "+s.order+": "+s.title+". "+s.summary});
+    g.appendChild(el("circle",{cx:x,cy:cy,r:24,fill:"var(--surface)",stroke:"var(--accent)","stroke-width":3}));
+    g.appendChild(txt(el("text",{x:x,y:cy+6,"text-anchor":"middle","font-size":18,"font-weight":600,fill:"var(--text)"}),s.order));
+    g.appendChild(txt(el("text",{x:x,y:cy+94,"text-anchor":"middle","font-size":13,"font-weight":600,fill:"var(--text)"}),s.title));
+    g.addEventListener("click",function(){select(i);});
+    g.addEventListener("keydown",function(e){
+      if(e.key==="Enter"||e.key===" "){e.preventDefault();select(i);}
+      else if(e.key==="ArrowRight"){e.preventDefault();focusNode((i+1)%n);}
+      else if(e.key==="ArrowLeft"){e.preventDefault();focusNode((i-1+n)%n);}
+    });
+    svg.appendChild(g); nodes.push(g);
+  });
+
+  function focusNode(i){nodes[i].focus();select(i);}
+
+  function select(i){
+    nodes.forEach(function(g,k){
+      g.querySelector("circle").setAttribute("fill",k===i?"var(--accent)":"var(--surface)");
+      g.querySelectorAll("text")[0].setAttribute("fill",k===i?"#fff":"var(--text)");
+    });
+    var s=data.steps[i], p=document.getElementById("panel");
+    p.textContent="";
+    p.appendChild(txt(document.createElement("h2"),s.title));
+    var cap=document.createElement("p"); cap.className="caption";
+    cap.textContent="Step "+s.order+" · "+s.summary; p.appendChild(cap);
+    s.rationales.forEach(function(r){
+      var row=document.createElement("div"); row.className="rat";
+      var gl=document.createElement("span"); gl.className="glyph"; gl.style.color=COLOR[r.type];
+      gl.textContent=GLYPH[r.type]; row.appendChild(gl);
+      var box=document.createElement("div");
+      box.appendChild(txt(document.createElement("b"),r.title));
+      box.appendChild(txt(document.createElement("p"),r.detail));
+      row.appendChild(box); p.appendChild(row);
+    });
+  }
+
+  select(0);
+})();
+</script>
+</body>
+</html>
