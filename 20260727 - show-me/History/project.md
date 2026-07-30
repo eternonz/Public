@@ -1,7 +1,22 @@
 # show-me — Project Brief
-
 Status: Incomplete
 Published to: (none yet)
+<!-- DOCUMENTATION-GATE:BEGIN -->
+Development Gate: Blocked — migration PRD and ADR require project-specific planning and explicit User approval
+
+Canonical documents:
+
+- Requirements: [PRD.md](PRD.md) — Pending User Approval
+- Architecture and decisions: [ADR.md](ADR.md) — Pending User Approval
+
+Markdown location exceptions:
+
+- `Build/show-me/README.md` — packaged Skill README required inside the deliverable.
+- `Build/show-me/SKILL.md` — required entrypoint for the packaged Skill.
+- `Build/show-me/references/concept-animation.md` — packaged Skill reference loaded by `SKILL.md`.
+- `Build/show-me/references/decision-map.md` — packaged Skill reference loaded by `SKILL.md`.
+- `Build/show-me/references/styling.md` — packaged Skill reference loaded by `SKILL.md`.
+<!-- DOCUMENTATION-GATE:END -->
 
 ## Goal / Scope
 
