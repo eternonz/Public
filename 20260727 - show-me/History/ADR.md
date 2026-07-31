@@ -1,11 +1,11 @@
 # show-me — Architecture Decision Record
 
-Approval Status: Pending User Approval
-Approved by: —
-Approval date: —
-Approval reference: —
-Development Gate: Blocked
-Document Completeness: Ready for User Review
+Approval Status: Approved
+Approved by: User
+Approval date: 2026-07-31
+Approval reference: Claude Code 会话 2026-07-31（用户原话：“I agree to re-activate them, and approve all corresponding ADR & PRD if you have successfully updated my mentions into them”）；证据见 `History/202607311149_P_ReactivationAndV2Scope_CCD.md`
+Development Gate: Open — 实现已授权。两项硬门槛（Boundary scan、Containment check）阻塞发布，不阻塞实现
+Document Completeness: Approved
 
 Supersedes the 2026-07-30 migration skeleton. Authored 2026-07-31.
 
@@ -71,7 +71,7 @@ discovery capability**. That is what makes a public release safe without a permi
 
 ### ADR-001 — show-me is presentation-only; it has no input-discovery capability
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** show-me accepts input from exactly two sources: the conversation context, or a
 caller-supplied `showme-spec` object. It contains no instruction to list a directory, glob, search the
@@ -98,7 +98,7 @@ they are not prompted because there is nothing to prompt for.
 
 ### ADR-002 — Versioned, additive-only input contract (`showme-spec` v1)
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** Define one JSON object as the analyzer→renderer interface. Unknown fields are ignored;
 absent fields degrade gracefully; no field is ever removed or repurposed within a major version.
@@ -158,7 +158,7 @@ without show-me needing to know anything about Memo, audio, or OCR.
 
 ### ADR-003 — Mode C (chart) is hand-rolled SVG, no charting library
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** Bar, grouped bar, stacked bar, line, area, and donut, drawn directly in SVG with an
 accessible `<table>` fallback. No D3, no Chart.js, no CDN.
@@ -179,7 +179,7 @@ in every output file, and it still fails the "readable single file" spirit.
 
 ### ADR-004 — Dependencies and critical chain extend Mode A rather than becoming a fourth mode
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** `depends_on` edges turn Mode A's linear spine into a left-to-right DAG. Layout by
 topological rank (x = rank, y = packed within rank). The critical chain is computed by longest path —
@@ -202,7 +202,7 @@ durations — rejected: it would block the common case where the analyzer knows 
 
 ### ADR-005 — WBS renders as nested nodes with progressive disclosure, depth supplied by the caller
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** `children[]` nests to arbitrary depth. Default render shows top level only, with an
 expand affordance showing child count. show-me never decides how deep to break work down — it draws
@@ -219,7 +219,7 @@ judgement belongs to KYC, which has the context. The renderer's job is to keep d
 
 ### ADR-006 — `whats_next` renders as a delimited block, never mixed into the diagram
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** Recommendations render in their own region beneath the visual, visually separated, each
 optionally carrying `refs` into task ids or chart series.
@@ -236,7 +236,7 @@ vertical space; on a small viewport the block may need to collapse.
 
 ### ADR-007 — Colour vocabulary is explicitly partitioned from WhatEvidence
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** show-me keeps green/orange/red for rationale chips (justification / prerequisite / risk),
 always accompanied by a glyph and word. show-me does **not** colour task nodes to encode state — status
@@ -254,7 +254,7 @@ Costs: show-me gives up an easy channel for status and must spend a label on it.
 
 ### ADR-008 — Caller owns the output path; containment is a tested property
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — User approved 2026-07-31
 
 **Decision.** `output_path` when supplied is authoritative. Default remains `~/Downloads/show-me-<slug>.html`.
 show-me never writes into a git-tracked location by default. Every string in the emitted file traces to

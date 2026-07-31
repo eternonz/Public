@@ -2,13 +2,15 @@
 Status: Incomplete
 Published to: (none yet)
 <!-- DOCUMENTATION-GATE:BEGIN -->
-Development Gate: Blocked — `PRD.md` and `ADR.md` were authored in full on 2026-07-31 for the v2 scope
-and are awaiting explicit User approval. No implementation may begin until both record approval.
+Development Gate: **Open** — `PRD.md` and `ADR.md` were authored in full for the v2 scope and explicitly
+approved by the User on 2026-07-31. Implementation is authorized. Two hard gates (Boundary scan,
+Containment check) block **publication**, not implementation. The 4 PRD Open Decisions block only their
+corresponding features.
 
 Canonical documents:
 
-- Requirements: [PRD.md](PRD.md) — Pending User Approval (Ready for User Review, 2026-07-31)
-- Architecture and decisions: [ADR.md](ADR.md) — Pending User Approval (Ready for User Review, 2026-07-31)
+- Requirements: [PRD.md](PRD.md) — **Approved 2026-07-31**
+- Architecture and decisions: [ADR.md](ADR.md) — **Approved 2026-07-31** (ADR-001…008 all Accepted)
 
 Markdown location exceptions:
 
@@ -82,7 +84,7 @@ judgement, and its colour vocabulary is explicitly partitioned from WhatEvidence
 
 **v2 — pending**
 
-- [ ] PRD and ADR explicitly approved by the User (currently blocking all implementation).
+- [x] PRD and ADR explicitly approved by the User — 2026-07-31. Development Gate opened.
 - [ ] Mode C, dependency/critical-chain, WBS nesting, and `whats_next` implemented.
 - [ ] `showme-spec` v1 documented and exercised end-to-end by KYC.
 - [ ] **Boundary scan passes** — no folder enumeration or permission prompt anywhere in the package.
@@ -115,3 +117,7 @@ judgement, and its colour vocabulary is explicitly partitioned from WhatEvidence
   input-discovery capability, so it never asks a public user which folder it may read. Replaced both
   migration skeletons with complete, project-specific `PRD.md` and `ADR.md` (8 ADRs). Both remain
   Pending User Approval, so the Development Gate stays Blocked and no code was written.
+- **2026-07-31** — **User explicitly approved both `PRD.md` and `ADR.md`.** Development Gate opened;
+  ADR-001…008 moved from Proposed to Accepted. Implementation of v2 is authorized. Publication remains
+  gated on the Boundary scan and Containment check; the 4 PRD Open Decisions still gate their own
+  features only. Project Status remains `Incomplete` (only the User may change it).

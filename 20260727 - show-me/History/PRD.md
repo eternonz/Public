@@ -1,11 +1,11 @@
 # show-me — Product Requirements Document
 
-Approval Status: Pending User Approval
-Approved by: —
-Approval date: —
-Approval reference: —
-Development Gate: Blocked
-Document Completeness: Ready for User Review
+Approval Status: Approved
+Approved by: User
+Approval date: 2026-07-31
+Approval reference: Claude Code 会话 2026-07-31（用户原话：“I agree to re-activate them, and approve all corresponding ADR & PRD if you have successfully updated my mentions into them”）；证据见 `History/202607311149_P_ReactivationAndV2Scope_CCD.md`
+Development Gate: Open — 实现已授权。PRD §Open Decisions 的 4 项待决仅阻塞其对应特性，不阻塞整体实现
+Document Completeness: Approved
 
 Supersedes the 2026-07-30 migration skeleton. Authored 2026-07-31 from `project.md`, the shipped
 `Build/show-me/` deliverable, and the User's 2026-07-31 scope clarification. Existing implementation
