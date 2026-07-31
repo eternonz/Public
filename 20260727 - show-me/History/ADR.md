@@ -256,18 +256,39 @@ Costs: show-me gives up an easy channel for status and must spend a label on it.
 
 **Decision Status:** Accepted — User approved 2026-07-31
 
-**Decision.** `output_path` when supplied is authoritative. Default remains `~/Downloads/show-me-<slug>.html`.
-show-me never writes into a git-tracked location by default. Every string in the emitted file traces to
-the spec, the conversation, or fixed skill chrome — verified by an automated containment check.
+**Decision.** `output_path` when supplied is authoritative. show-me never writes into a git-tracked
+location by default. Every string in the emitted file traces to the spec, the conversation, or fixed
+skill chrome — verified by an automated containment check.
+
+**Default output location — amended 2026-07-31 per User directive.** show-me is a **Skill**, not a
+Script: it ships `SKILL.md` plus references and assets, with no executable. Constitution §8 therefore
+routes it to `Harness/Extensions/Skills/`. Its generated files belong beside the installed skill:
+
+```
+Harness/Extensions/Skills/PortableSkills/show-me/          ← installed skill
+Harness/Extensions/Skills/PortableSkills/show-me/caches/   ← generated .html output
+```
+
+`PortableSkills/` matches the existing convention — every installed pack carrying a `SKILL.md` lives
+there. `Extensions/` was verified as **not a git repository**, so generated output cannot reach a repo
+by accident. The former `~/Downloads` default is retired: it mixed generated artifacts into the User's
+download clutter and sat outside the Harness structure entirely.
+
+Note for public installers: this default is Harness-specific. A public user without that layout gets
+the skill's own directory, or their explicit `output_path`.
 
 **Rationale.** KYC will build visuals from private material (Memo-derived tasks, possibly alongside
 health work). The analyzer, which knows the sensitivity, must choose where the file lands; the
 renderer, which does not, must not default it somewhere convenient. The containment check is what makes
 "show-me carries nothing it wasn't given" an assertion rather than a hope.
 
-**Consequences.** Benefits: private analysis produces private artifacts; no accidental publication.
-Costs: KYC must always pass a path — a missing path silently defaulting to `~/Downloads` is a real
-foot-gun, so KYC's own gate must require it.
+**Consequences.** Benefits: private analysis produces private artifacts; no accidental publication;
+generated files live beside the skill that made them rather than scattered across `~/Downloads`.
+Costs: KYC must still always pass an explicit path — silently defaulting is a real foot-gun regardless
+of how good the default is, so KYC's own gate requires it. `Extensions/Skills/` is the cross-AI shared
+library (Constitution §5), so anything in `caches/` is readable by every AI loader pointed at it —
+acceptable for the User's own tools, but it is why sensitive output should still be placed
+deliberately rather than left to the default.
 
 ## Data, Security, and Privacy
 
