@@ -43,6 +43,8 @@ claude-server-commander/
 **/_deploy_repo/
 # Ephemeral Claude Code worktrees
 **/.claude/worktrees/
+# Ephemeral Codex/Superpowers worktrees at the tier root
+.worktrees/
 # gstack runtime cache
 **/.gstack/
 
