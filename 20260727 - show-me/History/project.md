@@ -1,5 +1,5 @@
 # show-me — Project Brief
-Status: Pending
+Merged into: 20260728 - WhatEvidence
 Published to: (none yet)
 <!-- DOCUMENTATION-GATE:BEGIN -->
 Development Gate: **Open** — `PRD.md` and `ADR.md` were authored in full for the v2 scope and explicitly
