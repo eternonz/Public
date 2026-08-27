@@ -1,5 +1,5 @@
 # show-me — Project Brief
-Status: Processing
+Status: Pending
 Published to: (none yet)
 <!-- DOCUMENTATION-GATE:BEGIN -->
 Development Gate: **Open** — `PRD.md` and `ADR.md` were authored in full for the v2 scope and explicitly
@@ -121,3 +121,18 @@ judgement, and its colour vocabulary is explicitly partitioned from WhatEvidence
   ADR-001…008 moved from Proposed to Accepted. Implementation of v2 is authorized. Publication remains
   gated on the Boundary scan and Containment check; the 4 PRD Open Decisions still gate their own
   features only. Project Status remains `Incomplete` (only the User may change it).
+
+## Scope merge — 2026-08-27
+
+By explicit User decision, `show-me` is **merged into `20260728 - WhatEvidence` (WE)** as a
+presentation/rendering component. It is no longer an independent line of work.
+
+Consequences:
+
+- `Status: Processing → Pending`. WE itself is `Pending` until KYC completes, so `show-me` inherits
+  that block. Its own PRD/ADR approval of 2026-07-31 stays valid as historical evidence; it is not
+  revoked, it is simply not the thing that decides whether work may start any more.
+- The folder is **not** moved. The User rejected project-inside-project nesting on 2026-08-27, so the
+  merge is recorded as scope and authority, not as a filesystem change. Physical consolidation, if ever
+  wanted, waits for `20260719 - ProjectArchive`.
+- WE's PRD/ADR become the authority for `show-me`'s scope from this date.
